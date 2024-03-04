@@ -4,13 +4,19 @@ phases:
   install:
     runtime-versions:
       nodejs: 21
-    commands:
-      - npm install # Install Node.js dependencies
 
+  pre-build:
+    commands:
+      - aws --version
+      - echo "Docker Login"
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 590184051080.dkr.ecr.ap-south-1.amazonaws.com
+  
   build:
-    commands:
-      - npm run build # Build the React.js application
-
+    commands: 
+      - echo "Docker Build and Push"
+      - docker build -t react .
+      - docker tag react:latest 590184051080.dkr.ecr.ap-south-1.amazonaws.com/react:latest
+      - docker push 590184051080.dkr.ecr.ap-south-1.amazonaws.com/react:latest
 artifacts:
   files:
     - '**/*' # Include all files in the artifact

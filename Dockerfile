@@ -18,5 +18,6 @@ RUN npm install
 # Copying all the files in our project
 COPY . .
 
+RUN npm run build
 # Starting our application
-CMD ["npm","run","dev"]
+CMD ["npm","run","preview"]
