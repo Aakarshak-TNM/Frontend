@@ -4,9 +4,11 @@ phases:
   install:
     runtime-versions:
       nodejs: 21
-
+    commands:
+      - npm install # Install Node.js dependencies
   pre-build:
     commands:
+      - npm run build
       - aws --version
       - echo "Docker Login"
       - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 590184051080.dkr.ecr.ap-south-1.amazonaws.com
