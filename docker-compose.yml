@@ -9,6 +9,6 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - .:/react-app
+      - ./app:/react-app
     environment:
       - NODE_ENV=development
