@@ -6,7 +6,7 @@ phases:
       nodejs: 21
     commands:
       - npm install # Install Node.js dependencies
-  pre-build:
+  pre_build:
     commands:
       - npm run build
       - aws --version
