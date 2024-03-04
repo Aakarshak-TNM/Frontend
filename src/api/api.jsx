@@ -1,4 +1,6 @@
-const BASE_URL = 'http://localhost:8000'; // Your API base URL
+import config from "./config";
+
+const BASE_URL = config.base_url; // Your API base URL
 
 async function fetchStudents(query = "") {
   try {

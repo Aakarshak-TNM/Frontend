@@ -1,23 +1,33 @@
-# Use Node.js image as the base
-FROM node:18
+# Fetching the latest node image on Alpine Linux
+FROM node:latest AS builder
 
-# Set the working directory in the container
-WORKDIR /app
+# Declaring env
+ENV NODE_ENV=development
 
-# Copy package.json and package-lock.json to the working directory
-COPY . /app/ 
+# Setting up the work directory
+WORKDIR /react-app
 
-# Install dependencies using npm
+# Installing dependencies
+COPY package*.json ./
 RUN npm install
-
-# Copy the rest of the application files
+RUN npm i @rollup/rollup-linux-arm64-musl
+# Copying source code
 COPY . .
 
-# Build the application
+# Building the application
 RUN npm run build
 
-# Expose port 5000 (or any port your Vite server runs on)
-EXPOSE 5172
+# Final image stage
+FROM node:alpine
 
-# Command to run the production server
-CMD node run dev
+# Setting the work directory
+WORKDIR /react-app
+
+# Copying built artifacts from the builder stage
+COPY --from=builder /react-app/dist ./dist
+
+# Expose port if necessary
+# EXPOSE 3000
+
+# Start the application
+CMD ["npm", "run", "preview"]

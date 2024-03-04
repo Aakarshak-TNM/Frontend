@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Table from './table';
 import Paginationbutton from "./paginationbutton";
+import config from '../api/config';
 
 const listings = (students) => {
     const [results, setResults] = useState(1);
@@ -26,7 +27,7 @@ const listings = (students) => {
         handleSearchBar(event.target.value);
     }
     const handleSearchBar = (value) => {
-        fetch(`http://localhost:8000/Students/?query=${value}`, {
+        fetch(`${config.base_url}/Students/?query=${value}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
