@@ -13,15 +13,6 @@ sudo ./install auto
 
 # update os & install python3
 sudo apt-get update
-# sudo apt-get install -y python3 python3-dev python3-pip python3-venv
-# pip install --user --upgrade virtualenv
-sudo apt-get install docker.io -y
-sudo systemctl start docker
-sudo systemctl enable docker
-
-sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-
 
 # delete app
 sudo rm -rf /home/ubuntu/Frontend
