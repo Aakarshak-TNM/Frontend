@@ -4,5 +4,7 @@ files:
   - source: /
     destination: /home/ubuntu/Frontend
 hooks:
+  BeforeInstall:
+      - location: scripts/before_install.sh
   AfterInstall:
       - location: scripts/after_install.sh
