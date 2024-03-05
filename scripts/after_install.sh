@@ -7,7 +7,7 @@ sudo pkill -f runserver
 cd /home/ubuntu/Frontend/
 # Verify AWS CLI installation and configure if needed
 aws --version
-# aws configure  # Uncomment this line if you need to configure AWS CLI
+aws configure  # Uncomment this line if you need to configure AWS CLI
 
 # Set AWS credentials and region (consider using secure methods)
 export AWS_ACCESS_KEY_ID=AKIAYS2NV6GEEGQGLJGM
