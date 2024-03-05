@@ -1,3 +1,10 @@
+#!/usr/bin/env bash
+
+# Kill any servers that may be running in the background
+sudo pkill -f runserver
+
+# Change directory to the Django project root
+cd /home/ubuntu/Frontend/
 # Verify AWS CLI installation and configure if needed
 aws --version
 # aws configure  # Uncomment this line if you need to configure AWS CLI
