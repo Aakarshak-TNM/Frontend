@@ -5,13 +5,13 @@ import {
     Button,
     Typography,
 } from "@material-tailwind/react";
-
+import { Link } from "react-router-dom";
 import { React, useState } from 'react'
 import axios from 'axios';
 import config from "../api/config";
 import { useNavigate } from 'react-router-dom';
 
-const login = () => {
+const login = (props) => {
     const navigateTo = useNavigate();
     const [alertFlag, setalertFlag] = useState(false)
     const [checked, setChecked] = useState(false);
@@ -31,7 +31,6 @@ const login = () => {
         e.preventDefault();
         try {
             const response = await axios.post(config.login, formData);
-            console.log(response.data);
             navigateTo('/');
         } catch (error) {
             console.error('Error submitting form:', error);
@@ -99,6 +98,17 @@ const login = () => {
                     <Button className="mt-6" fullWidth disabled={!checked} type="submit">
                         log in
                     </Button>
+                    <Typography
+                        variant="small"
+                        color="gray"
+                        className="text-center my-2"
+                    >
+                        Don't have an Account?
+                        <Link to='/signup' className="underline text-black mx-2">
+                            SignUp Here
+                        </Link>
+                    </Typography>
+
                 </form>
             </Card>
         </div>

@@ -12,19 +12,24 @@ import config from "../api/config";
 import axios from 'axios';
 import Alert from "./alert"
 import { useNavigate } from 'react-router-dom';
+import Check from "./checkbox";
 
-const signup = () => {
+const signup = (props) => {
     const navigateTo = useNavigate();
     const [alertFlag, setalertFlag] = useState(false)
     const [alert, setAlert] = useState("")
     const [checked, setChecked] = useState(false);
+    // const [teacherValue, setTeacherValue] = useState(false)
+    // const [studentValue, setStudentValue] = useState(false)
+
     const handleonChange = (event) => {
         setChecked(event.target.checked);
     }
     const [formData, setFormData] = useState({
         username: '',
         email: '',
-        password: ''
+        password: '',
+        user_type:'',
     });
 
     const handleChange = (e) => {
@@ -36,8 +41,7 @@ const signup = () => {
         e.preventDefault();
         try {
             const response = await axios.post(config.signup, formData);
-            // console.log(response.data);
-            navigateTo('/');
+            navigateTo('/login');
         } catch (error) {
             // console.error('Error submitting form:', error);
             setalertFlag(true);
@@ -45,7 +49,7 @@ const signup = () => {
         }
     };
     return (
-        <div className={`flex flex-col items-center justify-center ${alertFlag ? "mt-24" : "mt-[9.5rem]"}`}>
+        <div className={`flex flex-col items-center justify - center ${alertFlag ? "mt-24" : "mt-[8.5rem]"} `}>
             <div className="w-[26rem] px-4">
                 {alertFlag && <Alert message={alert} />}
             </div>
@@ -96,6 +100,9 @@ const signup = () => {
                             name="password" value={formData.password} onChange={handleChange}
                         />
                     </div>
+
+                    {/* <Check studentValue={studentValue} teacherValue={teacherValue} setStudentValue={setStudentValue} setTeacherValue={setTeacherValue} /> */}
+
                     <Checkbox
                         label={
                             <Typography
@@ -116,12 +123,12 @@ const signup = () => {
                         checked={checked}
                         onChange={handleonChange}
                     />
-                    <Button className="mt-6" fullWidth disabled={!checked} type="submit">
+                    <Button className="" fullWidth disabled={!checked} type="submit">
                         sign up
                     </Button>
                     <Typography color="gray" className="mt-4 text-center font-normal">
                         Already have an account?{" "}
-                        <Link to="/login" className="font-medium text-gray-900">
+                        <Link to={`${props.loginFlag ? '/login' : '/'} `} className="font-medium text-gray-900">
                             Sign In
                         </Link>
                     </Typography>

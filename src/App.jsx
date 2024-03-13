@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchStudents } from "./api/api"
-import Navbar from './components/navbar'
+import Navbar from './components/navbar2'
 import Listings from './components/listings'
 import Signup from "./components/signup"
 import Login from "./components/login"
@@ -12,7 +12,6 @@ function App() {
   const [searchBar, setSearchBar] = useState("");
   const [totalResults, setTotalResults] = useState(0);
   const [number_of_page, setNumberOfPage] = useState(0);
-
   useEffect(() => {
     fetchData();
   }, [searchBar]);
@@ -32,8 +31,9 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={
-            <div><Navbar />
+          <Route path={`/`} element={
+            <div>
+              <Navbar/>
               <Listings
                 students={students}
                 setStudents={setStudents}
@@ -43,11 +43,11 @@ function App() {
                 setTotalResults={setTotalResults}
                 number_of_page={number_of_page}
                 setNumberOfPage={setNumberOfPage}
-              /></div>} />
-          <Route path='/signup' element={<Signup/>} />
-          <Route path='/login' element={<Login/>} />
-
-          </Routes>
+              />
+            </div>} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/login' element={<Login />} />
+        </Routes>
       </BrowserRouter>
     </>
   );
