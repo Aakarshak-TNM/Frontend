@@ -27,10 +27,12 @@ const listings = (students) => {
         handleSearchBar(event.target.value);
     }
     const handleSearchBar = (value) => {
+        const token = localStorage.getItem('token');
         fetch(`${config.base_url}/Students/?query=${value}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
         })
             .then(response => response.json())

@@ -34,13 +34,13 @@ import { useEffect, useState } from 'react';
 
 const navListMenuItems = [
     {
-        title: "Products",
-        description: "Find the perfect solution for your needs.",
+        title: "Student",
+        description: "Add the Students",
         icon: SquaresPlusIcon,
     },
     {
-        title: "About Us",
-        description: "Meet and learn about our dedication",
+        title: "Listing",
+        description: "List the Students Data in the Table",
         icon: UserGroupIcon,
     },
     {
@@ -85,7 +85,7 @@ function NavListMenu() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
     const renderItems = navListMenuItems.map(
         ({ icon, title, description }, key) => (
-            <a href="#" key={key}>
+            <Link to={`/${title.toLowerCase()}`} key={key}>
                 <MenuItem className="flex items-center gap-3 rounded-lg">
                     <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
                         {" "}
@@ -110,7 +110,7 @@ function NavListMenu() {
                         </Typography>
                     </div>
                 </MenuItem>
-            </a>
+            </Link>
         ),
     );
 
@@ -159,16 +159,19 @@ function NavListMenu() {
 
 function NavList() {
     return (
-        <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
-            <Typography
+        <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1 justify-center items-center">
+            <Link
+                to='/'
                 as="a"
-                href="#"
                 variant="small"
                 color="blue-gray"
                 className="font-medium"
             >
-                <ListItem className="flex items-center gap-2 py-2 pr-4">Home</ListItem>
-            </Typography>
+
+                <ListItem className="flex items-center gap-2 py-2 pr-4">
+                    Home
+                </ListItem>
+            </Link>
             <NavListMenu />
             <Typography
                 as="a"
@@ -197,7 +200,7 @@ function NavList() {
     );
 }
 
-const navbar2 = () => {
+const navbar2 = (props) => {
     const [openNav, setOpenNav] = React.useState(false);
 
     React.useEffect(() => {
@@ -206,6 +209,12 @@ const navbar2 = () => {
             () => window.innerWidth >= 960 && setOpenNav(false),
         );
     }, []);
+
+    const handleonClick = () => {
+        props.setLoginState(false);
+        localStorage.clear();
+    }
+
     return (
         <Navbar className={`mx-auto max-w-screen-xl px-4 py-2 my-2 `}>
             <div className="flex items-center justify-between text-blue-gray-900">
@@ -220,14 +229,19 @@ const navbar2 = () => {
                 <div className="hidden lg:block">
                     <NavList />
                 </div>
-                <div className="hidden gap-2 lg:flex">
+                {!props.loginState && <div className="hidden gap-2 lg:flex">
                     <Link to='/login'><Button variant="text" size="sm" color="blue-gray">
                         Log In
                     </Button></Link>
                     <Link to='/signup'><Button variant="gradient" size="sm">
                         Sign Up
                     </Button></Link>
-                </div>
+                </div>}
+                {props.loginState && <div className="hidden gap-2 lg:flex">
+                    <Link to='/login'><Button variant="gradient" size="sm" onClick={handleonClick}>
+                        Log Out
+                    </Button></Link>
+                </div>}
                 <IconButton
                     variant="text"
                     color="blue-gray"

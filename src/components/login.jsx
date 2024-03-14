@@ -31,9 +31,13 @@ const login = (props) => {
         e.preventDefault();
         try {
             const response = await axios.post(config.login, formData);
+            const token = response.data.token.access;
+            localStorage.setItem('token', token);
+            props.setLoginState(true);
             navigateTo('/');
         } catch (error) {
             console.error('Error submitting form:', error);
+            props.setLoginState(false);
             // setalertFlag(true);
             // setAlert("User Already Exists, Sign Instead!");
         }

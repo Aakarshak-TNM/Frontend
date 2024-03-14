@@ -12,13 +12,14 @@ import config from "../api/config";
 import axios from 'axios';
 import Alert from "./alert"
 import { useNavigate } from 'react-router-dom';
-import Check from "./checkbox";
+import Select from "./select";
 
 const signup = (props) => {
     const navigateTo = useNavigate();
     const [alertFlag, setalertFlag] = useState(false)
     const [alert, setAlert] = useState("")
     const [checked, setChecked] = useState(false);
+    const [value, setValue] = React.useState("");
     // const [teacherValue, setTeacherValue] = useState(false)
     // const [studentValue, setStudentValue] = useState(false)
 
@@ -29,7 +30,7 @@ const signup = (props) => {
         username: '',
         email: '',
         password: '',
-        user_type:'',
+        user_type: '',
     });
 
     const handleChange = (e) => {
@@ -45,7 +46,7 @@ const signup = (props) => {
         } catch (error) {
             // console.error('Error submitting form:', error);
             setalertFlag(true);
-            setAlert("User Already Exists, Sign Instead!");
+            setAlert("OOPS! Something Happens Check Username or Password");
         }
     };
     return (
@@ -101,7 +102,7 @@ const signup = (props) => {
                         />
                     </div>
 
-                    {/* <Check studentValue={studentValue} teacherValue={teacherValue} setStudentValue={setStudentValue} setTeacherValue={setTeacherValue} /> */}
+                    <Select value={value} setValue={setValue} name={'user_type'} handleChange={handleChange} />
 
                     <Checkbox
                         label={
