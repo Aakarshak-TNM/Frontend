@@ -7,6 +7,7 @@ import Login from "./components/login"
 import Typing from './components/typing';
 import StudentData from './components/student_data';
 import image from './assets/student-management.webp'
+import Otp from './components/otp'
 // import { jwtDecode } from 'jwt-decode';
 
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
@@ -18,6 +19,7 @@ function App() {
   const [number_of_page, setNumberOfPage] = useState(0);
   const [imageLoad, setImageLoad] = useState(false)
   const [loginState, setLoginState] = useState(true)
+  const [otp, setOtp] = useState('')
 
   useEffect(() => {
     fetchData();
@@ -90,7 +92,8 @@ function App() {
           />
           <Route path='/student' element={<div className='flex flex-col justify-center items-center mt-10'><StudentData /></div>} />
           <Route path='/signup' element={<Signup />} />
-          <Route path='/login' element={<Login setLoginState={setLoginState} />} />
+          <Route path='/login' element={<Login setLoginState={setLoginState} setOtp={setOtp} />} />
+          <Route path='/otp' element={<div className='flex flex-col justify-center items-center mt-10'><Otp otp={otp} /></div>}></Route>
         </Routes>
       </BrowserRouter>
     </>

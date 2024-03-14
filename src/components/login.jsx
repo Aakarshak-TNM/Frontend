@@ -20,21 +20,36 @@ const login = (props) => {
     }
     const [formData, setFormData] = useState({
         username: '',
-        password: ''
+        password: '',
+        email: '',
     });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
+
+    const handleOtp = async () => {
+        try {
+            const response = await axios.post('https://2gb00p0vlj.execute-api.ap-south-1.amazonaws.com/dev/login', formData);
+            return response.data;
+        } catch (error) {
+            console.error('Error verifying OTP:', error);
+            throw error; // Rethrow the error to handle it in the caller function
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            const otpResponse = await handleOtp();
+            props.setOtp(otpResponse.body);
+            // Proceed with login only if OTP verification is successful
             const response = await axios.post(config.login, formData);
             const token = response.data.token.access;
             localStorage.setItem('token', token);
             props.setLoginState(true);
-            navigateTo('/');
+            navigateTo('/otp');
         } catch (error) {
             console.error('Error submitting form:', error);
             props.setLoginState(false);
@@ -42,6 +57,7 @@ const login = (props) => {
             // setAlert("User Already Exists, Sign Instead!");
         }
     };
+
     return (
         <div className={`flex flex-col items-center justify-center ${alertFlag ? "mt-24" : "mt-[9.5rem]"}`}>
             <Card color="transparent" shadow={false}>
@@ -77,6 +93,18 @@ const login = (props) => {
                                 className: "before:content-none after:content-none",
                             }}
                             name="password" value={formData.password} onChange={handleChange}
+                        />
+                        <Typography variant="h6" color="blue-gray" className="-mb-3">
+                            Your Email
+                        </Typography>
+                        <Input
+                            size="lg"
+                            placeholder="Email"
+                            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                            labelProps={{
+                                className: "before:content-none after:content-none",
+                            }}
+                            name="email" value={formData.email} onChange={handleChange}
                         />
                     </div>
                     <Checkbox
