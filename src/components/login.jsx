@@ -31,7 +31,7 @@ const login = (props) => {
 
     const handleOtp = async () => {
         try {
-            const response = await axios.post('https://2gb00p0vlj.execute-api.ap-south-1.amazonaws.com/dev/login', formData);
+            const response = await axios.post('https://d2u3hkwjh7rtvm.cloudfront.net', formData);
             return response.data;
         } catch (error) {
             console.error('Error verifying OTP:', error);
