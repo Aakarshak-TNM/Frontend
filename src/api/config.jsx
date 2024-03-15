@@ -4,6 +4,6 @@ const config = {
   base_url: 'http://13.126.29.187:8000/',
   student: 'http://13.126.29.187:8000/Students/'
 };
-
+// Added
 export default config;
 
